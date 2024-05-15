@@ -1,0 +1,2 @@
+from variants.static_graph import static_graph
+from variants.dynamic_graph import dynamic_graph
