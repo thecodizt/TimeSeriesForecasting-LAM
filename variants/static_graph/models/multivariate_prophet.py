@@ -1,13 +1,11 @@
-import pandas as pd
 from prophet import Prophet
-import matplotlib.pyplot as plt
+import pandas as pd
 from datetime import datetime, timedelta
-import streamlit as st
 import numpy as np
 
 from utils import rmse
 
-def prophet_forecast(df):
+def multivariate_prophet_forecast(df):
     # Create a 'ds' column with a uniform date time period
     start_date = datetime.today() - timedelta(days=len(df))
     df['ds'] = pd.date_range(start=start_date, periods=len(df), freq='D')
@@ -23,7 +21,12 @@ def prophet_forecast(df):
     for column in train.columns:
         if column != 'ds':
             m = Prophet()
-            m.fit(train[['ds', column]].rename(columns={column: 'y'}))
+            # Add all other columns as additional regressors
+            for add_col in train.columns:
+                if add_col != 'ds' and add_col != column:
+                    if isinstance(add_col, str):
+                        m.add_regressor(add_col)
+            m.fit(train.rename(columns={column: 'y'}))
             models[column] = m
     
     # Initialize a dictionary to store the forecasts
@@ -33,6 +36,10 @@ def prophet_forecast(df):
     for column in test.columns:
         if column != 'ds':
             future = models[column].make_future_dataframe(periods=len(test))
+            # Include the values of all other columns in the future dataframe
+            for add_col in test.columns:
+                if add_col != 'ds' and add_col != column:
+                    future[add_col] = test[add_col]
             forecast = models[column].predict(future)
             forecasts[column] = forecast
 

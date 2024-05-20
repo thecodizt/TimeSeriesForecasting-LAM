@@ -68,11 +68,11 @@ def generate_node_data(num_properties=1, num_records=100, num_control_points=10,
     return tranposed
         
 def flatten_dataframe(df):
-    df_flat = df.reset_index().melt(id_vars='index', var_name='column', value_name='value')
+    df_flat = df.reset_index().melt(id_vars='timestamp', var_name='feature', value_name='value')
     return df_flat
 
 def unflatten_dataframe(df_flat):
-    df = df_flat.pivot(index='index', columns='column', values='value')
+    df = df_flat.pivot(index='timestamp', columns='feature', values='value')
     df.reset_index(drop=True, inplace=True)
     df.columns.name = None
     return df
@@ -80,7 +80,7 @@ def unflatten_dataframe(df_flat):
 def merge_melted_dfs(dfs):
     # Add 'entity' column to each DataFrame and concatenate them
     for i, df in enumerate(dfs):
-        df['entity'] = i
+        df['node'] = i
     
     df_concat = pd.concat(dfs, ignore_index=True)
     return df_concat
@@ -112,8 +112,8 @@ def visualize_adjacency_matrix(adj_matrix):
     st.pyplot(plt)
     
 def get_node_data_from_merged(merged_data, node_index):
-    filtered = merged_data[merged_data["entity"] == node_index]
-    filtered.drop(["entity"], axis=1, inplace=True)
+    filtered = merged_data[merged_data["node"] == node_index]
+    filtered.drop(["node"], axis=1, inplace=True)
     
     unflattened = unflatten_dataframe(filtered)
     

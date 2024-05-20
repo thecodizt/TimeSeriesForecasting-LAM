@@ -1,12 +1,25 @@
 import streamlit as st
+import pandas as pd
 
 def input():
+    node_data = None
+    edge_data = None
+    
     with st.sidebar:
-        num_nodes = st.number_input(label="Number of Nodes in Graph", min_value=1, step=1)
-        num_records = st.number_input(label="Number of records for each node", min_value=1, step=10)
-        num_prop = st.number_input(label="Number of properties for each node", min_value=1, step=1)
-        edge_density = st.number_input(label="Edge Density in Adjacency Matrix", min_value=0.0, max_value=1.0, step=0.05)
-        noise = st.number_input(label="Maximum Noise in Values", min_value=0.0, max_value=1.0, step=0.05)
-        num_control_points = st.number_input(label="Number of Control Points in Generation", min_value=2, step=1)
+        node_data_file = st.file_uploader(
+            label="Node Data",
+            type=["csv"]
+        )
         
-    return num_nodes, num_records, num_prop, edge_density, noise, num_control_points
+        edge_data_file = st.file_uploader(
+            label="Edge Data",
+            type=["csv"]
+        )
+        
+        if node_data_file:
+            node_data = pd.read_csv(node_data_file)
+        
+        if edge_data_file:
+            edge_data = pd.read_csv(edge_data_file)
+        
+    return node_data, edge_data
