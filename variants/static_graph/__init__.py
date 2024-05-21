@@ -63,7 +63,20 @@ def static_graph():
                         plt.plot(range(len(train), len(train) + len(test)), test[column], color=colors[i % len(colors)], alpha=0.6, label=f'Actual {column}')  # Lighter shade for actual values
                         plt.plot(range(len(train), len(train) + len(test)), forecasts[column]['yhat'][-len(test):], color=colors[i % len(colors)], alpha=1, label=f'Predicted {column}')  # Lighter shade for predicted values
 
-                plt.title('Training, Actual vs Predicted')
+                plt.title('Actual vs Predicted')
+                plt.xlabel('Index')
+                plt.ylabel('Value')
+                plt.legend()
+                st.pyplot(plt)  # Display the plot in Streamlit
+                
+                # Plot the actual vs predicted values
+                plt.figure(figsize=(10, 6))
+                for i, column in enumerate(test.columns):
+                    if column != 'ds':
+                        plt.plot(range(len(train), len(train) + len(test)), test[column], color=colors[i % len(colors)], alpha=0.3, label=f'Actual {column}')  # Lighter shade for actual values
+                        plt.plot(range(len(train), len(train) + len(test)), forecasts[column]['yhat'][-len(test):], color=colors[i % len(colors)], alpha=1, label=f'Predicted {column}')  # Lighter shade for predicted values
+
+                plt.title('Actual vs Predicted')
                 plt.xlabel('Index')
                 plt.ylabel('Value')
                 plt.legend()
@@ -109,6 +122,19 @@ def static_graph():
                 plt.ylabel('Value')
                 plt.legend()
                 st.pyplot(plt)  # Display the plot in Streamlit
+                
+                # Plot the actual vs predicted values
+                plt.figure(figsize=(10, 6))
+                for i, column in enumerate(test.columns):
+                    if column != 'ds':
+                        plt.plot(range(len(train), len(train) + len(test)), test[column], color=colors[i % len(colors)], alpha=0.3, label=f'Actual {column}')  # Lighter shade for actual values
+                        plt.plot(range(len(train), len(train) + len(test)), forecasts[column][-len(test):], color=colors[i % len(colors)], alpha=1, label=f'Predicted {column}')  # Lighter shade for predicted values
+
+                plt.title('Actual vs Predicted')
+                plt.xlabel('Index')
+                plt.ylabel('Value')
+                plt.legend()
+                st.pyplot(plt)  # Display the plot in Streamlit
 
             with st.expander(label="Exponential Smoothing", expanded=True):
                 results = {}
@@ -146,6 +172,19 @@ def static_graph():
                         plt.plot(range(len(train), len(train) + len(test)), forecasts[column][-len(test):], color=colors[i % len(colors)], alpha=1, label=f'Predicted {column}')  # Lighter shade for predicted values
 
                 plt.title('Training, Actual vs Predicted')
+                plt.xlabel('Index')
+                plt.ylabel('Value')
+                plt.legend()
+                st.pyplot(plt)  # Display the plot in Streamlit
+                
+                # Plot the actual vs predicted values
+                plt.figure(figsize=(10, 6))
+                for i, column in enumerate(test.columns):
+                    if column != 'ds':
+                        plt.plot(range(len(train), len(train) + len(test)), test[column], color=colors[i % len(colors)], alpha=0.3, label=f'Actual {column}')  # Lighter shade for actual values
+                        plt.plot(range(len(train), len(train) + len(test)), forecasts[column][-len(test):], color=colors[i % len(colors)], alpha=1, label=f'Predicted {column}')  # Lighter shade for predicted values
+
+                plt.title('Actual vs Predicted')
                 plt.xlabel('Index')
                 plt.ylabel('Value')
                 plt.legend()
@@ -196,6 +235,19 @@ def static_graph():
                 plt.legend()
                 st.pyplot(plt)  # Display the plot in Streamlit
                 
+                # Plot the actual vs predicted values
+                plt.figure(figsize=(10, 6))
+                for i, column in enumerate(test.columns):
+                    if column != 'ds':
+                        plt.plot(range(len(train), len(train) + len(test)), test[column], color=colors[i % len(colors)], alpha=0.3, label=f'Actual {column}')  # Lighter shade for actual values
+                        plt.plot(range(len(train), len(train) + len(test)), forecasts[column]['yhat'][-len(test):], color=colors[i % len(colors)], alpha=1, label=f'Predicted {column}')  # Lighter shade for predicted values
+
+                plt.title('Actual vs Predicted')
+                plt.xlabel('Index')
+                plt.ylabel('Value')
+                plt.legend()
+                st.pyplot(plt)  # Display the plot in Streamlit
+                
             with st.expander(label="Multivariate VAR", expanded=True):
                 results = {}
                 rmse_values = []
@@ -240,6 +292,19 @@ def static_graph():
                 plt.legend()
                 st.pyplot(plt)  # Display the plot in Streamlit
                 
+                # Plot the actual vs predicted values
+                plt.figure(figsize=(10, 6))
+                for i, column in enumerate(test.columns):
+                    if column != 'ds':
+                        plt.plot(range(len(train), len(train) + len(test)), test[column], color=colors[i % len(colors)], alpha=0.3, label=f'Actual {column}')  # Lighter shade for actual values
+                        plt.plot(range(len(train), len(train) + len(test)), forecasts_df[column][-len(test):], color=colors[i % len(colors)], alpha=1, label=f'Predicted {column}')  # Lighter shade for predicted values
+
+                plt.title('Actual vs Predicted')
+                plt.xlabel('Index')
+                plt.ylabel('Value')
+                plt.legend()
+                st.pyplot(plt)  # Display the plot in Streamlit
+                
             with st.expander(label="Multivariate VARMAX", expanded=True):
                 results = {}
                 rmse_values = []
@@ -279,6 +344,19 @@ def static_graph():
                         plt.plot(range(len(train), len(train) + len(test)), forecasts_df[column][-len(test):], color=colors[i % len(colors)], alpha=1, label=f'Predicted {column}')  # Lighter shade for predicted values
 
                 plt.title('Training, Actual vs Predicted')
+                plt.xlabel('Index')
+                plt.ylabel('Value')
+                plt.legend()
+                st.pyplot(plt)  # Display the plot in Streamlit
+                
+                # Plot the actual vs predicted values
+                plt.figure(figsize=(10, 6))
+                for i, column in enumerate(test.columns):
+                    if column != 'ds':
+                        plt.plot(range(len(train), len(train) + len(test)), test[column], color=colors[i % len(colors)], alpha=0.3, label=f'Actual {column}')  # Lighter shade for actual values
+                        plt.plot(range(len(train), len(train) + len(test)), forecasts_df[column][-len(test):], color=colors[i % len(colors)], alpha=1, label=f'Predicted {column}')  # Lighter shade for predicted values
+
+                plt.title('Actual vs Predicted')
                 plt.xlabel('Index')
                 plt.ylabel('Value')
                 plt.legend()
